@@ -7,10 +7,10 @@ df2 = pd.DataFrame(data2, columns = ['0','1','2','3','4','5','6',"7"])
 df3 = pd.DataFrame()
 df4 = pd.DataFrame()
 
-cols = np.transpose(df1)
-cols2 = pd.DataFrame(cols.index)
-col3 = cols2.index.values
-rows = df3.index.values
+#cols = np.transpose(df1)
+#cols2 = pd.DataFrame(cols.index)
+#col3 = cols2.index.values
+#rows = df3.index.values
 def catsr(x):
     if x <= 2:
         return "trib"
@@ -18,10 +18,12 @@ def catsr(x):
         return "ohio"
 
 def catba(x):
-    if x <= 1:
+    if x <= 1 and x > 0:
         return "lusk"
-    if x > 1:
+    if x == 0:
         return "notlusk"
+    if x > 1:
+        return "emb"
 
 #def catall(Srdf,Badf):
 #        d1 = Srdf
@@ -64,10 +66,12 @@ df5 = pd.DataFrame(df5)
 conditions = [
     (df5 == 'ohionotlusk'),
     (df5 == 'ohiolusk'),
+    (df5 == 'ohioemb'),
     (df5 == 'triblusk'),
-    (df5 == 'tribnotlusk')]
-choices = ['ohio','ohio', 'lusk', 'trib']  
-cat_final_np = np.select(conditions, choices, default='none')
+    (df5 == 'tribnotlusk'),
+    (df5 == 'tribemb')]
+choices = ['ohio','ohio','ohio', 'lusk', 'trib','emb']  
+cat_final_np = np.select(conditions, choices, default=np.NaN)
 
 
 
