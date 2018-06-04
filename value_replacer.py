@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-data = np.genfromtxt(r'C:\Users\olive\Google Drive\recruitment manuscript\SrCa_boston_class.csv', delimiter=',', dtype='float',skip_header=1)
+data = np.genfromtxt(r'C:\Users\olive\Google Drive\recruitment manuscript\BaCa_boston_class.csv', delimiter=',', dtype='float',skip_header=1)
 data = np.delete(data,0,1)
 df1 = pd.DataFrame(data)
 df1 = df1.replace(-1, np.nan)

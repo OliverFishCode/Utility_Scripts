@@ -8,73 +8,110 @@ data2 = np.delete(data2,0,1)
 df2 = pd.DataFrame(data2)
 df3 = pd.DataFrame()
 df4 = pd.DataFrame()
+del (data,data2) 
 
-#cols = np.transpose(df1)
-#cols2 = pd.DataFrame(cols.index)
-#col3 = cols2.index.values
-#rows = df3.index.values
 def catsr(x):
-    if x <= 2:
+    if x <= 0.3905126:
         return "trib"
-    if x > 2 and x <= 5:
-        return "ohio"
-
+    if x > 0.3905127 and x <= 0.5137543:
+        return "mmr_trib"
+    if x > 0.5137544 and x <= 0.5695187:
+        return "unknown"
+    if x > 0.5695188 and x <= 0.9315134:
+        return "mmr_ohio"
+    if x > 0.9315135 and x <= 1.1580521:
+        return "union"
+    if x > 1.1580522 and x <= 10000:
+        return "outside"
+    else:
+        return "none"
+    
 def catba(x):
-    if x <= 1 and x > 0:
-        return "lusk"
-    if x == 0:
-        return "notlusk"
-    if x > 1:
-        return "emb"
+    if x >0.0033974 and  x <= 0.005684436:
+        return "_def_trib"
+    if x > 0.005684437 and x <= 0.00818352:
+        return "_ohio_trib"
+    if x > 0.008183521 and x <= 0.012092914:
+        return "_mmr_trib"
+    else:
+        return "_none"
 
-#def catall(Srdf,Badf):
-#        d1 = Srdf
-#        d2 = Badf
-#        y = col3 
-#        for y in range (len(col3)):
-#            if (d1 is "trib" and d2 is "lusk"):
-#                yield  "lusk"
-#            if (d1 is "trib" and d2 is "not lusk"):
-#                yield "trib"
-#            if (d1 is "ohio" and d2 is "lusk" or "notlusk"):
-#                yield "ohio"
-#
-#def rep(rows):  
-#        for rows in range(len(df3.index.values)):
-#            j = list(catall(df3,df4))
-#            yield list(j)        
 
 for col in df1.columns:
-    df3[col] = df1[col].apply(catsr)
+    df3[col] = df2[col].apply(catsr)
 
 for col in df2.columns:
-    df4[col] = df2[col].apply(catba)
+    df4[col] = df1[col].apply(catba)
 
 
-#final_category_proper = pd.DataFrame(list(rep(rows)))
+
 
 df5 = pd.DataFrame(df3 + df4)
 
-#def catdirty(x):
-#    if x == ["triblusk"]:
-#        return "lusk"
-#    if x is 'ohionotlusk' or x is 'ohiolusk':
-#        return 'ohio'
-#    if x is "tribnotlusk":
-#        return "trib"
-#final_cat_dirty = np.where(df5=="triblusk","lusk","none")  
 
 df5 = pd.DataFrame(df5)  
 conditions = [
-    (df5 == 'ohionotlusk'),
-    (df5 == 'ohiolusk'),
-    (df5 == 'ohioemb'),
-    (df5 == 'triblusk'),
-    (df5 == 'tribnotlusk'),
-    (df5 == 'tribemb')]
-choices = ['ohio','ohio','ohio', 'lusk', 'trib','emb']  
-cat_final_np = np.select(conditions, choices, default=np.NaN)
+    (df5 == 'mmr_ohio_def_trib'),
+    (df5 == 'mmr_ohio_none'),
+    (df5 == 'mmr_ohio_ohio_trib'),
+    (df5 == 'mmr_ohio_mmr_trib'),  
+    (df5 == 'union_def_trib'),
+    (df5 == 'union_none'),
+    (df5 == 'union_ohio_trib'),
+    (df5 == 'union_mmr_trib'),   
+    (df5 == 'outside_def_trib'),
+    (df5 == 'outside_none'),
+    (df5 == 'outside_ohio_trib'),
+    (df5 == 'outside_mmr_trib'), 
+    (df5 == 'none_def_trib'),
+    (df5 == 'none_none'),
+    (df5 == 'none_ohio_trib'),
+    (df5 == 'none_mmr_trib'),
+    (df5 == 'unknown_def_trib'),
+    (df5 == 'unknown_none'),
+    (df5 == 'unknown_ohio_trib'),
+    (df5 == 'unknown_mmr_trib'),  
+    (df5 == 'trib_def_trib'),
+    (df5 == 'trib_none'),
+    (df5 == 'trib_ohio_trib'),
+    (df5 == 'trib_mmr_trib'),
+    (df5 == 'mmr_trib_def_trib'),
+    (df5 == 'mmr_trib_none'),
+    (df5 == 'mmr_trib_ohio_trib'),
+    (df5 == 'mmr_trib_mmr_trib'),
+    ]
 
+choices = ['mmr_ohio',
+           'mmr_ohio',
+           'ohio',
+           'mmr',           
+           'union',
+           'union',
+           'union',
+           'union',         
+           'outside',
+           'outside',
+           'outside',
+           'outside',         
+           'trib',
+           '0',
+           'ohio_trib',
+           'mmr_trib',         
+           'trib',
+           'unknown',
+           'ohio_trib',
+           'mmr_trib',           
+           'trib',
+           'trib',
+           'trib',
+           'trib',           
+           'trib',
+           'mmr_trib',
+           'trib',
+           'mmr_trib',
+           ]  
+cat_final_np = np.select(conditions, choices, default=np.NaN)
+cat_final = pd.DataFrame(cat_final_np)
 
 
 
