@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-data = np.genfromtxt(r'C:\Users\olive\Google Drive\recruitment manuscript\BaCa_boston_class_clip.csv', delimiter=',', dtype='float',skip_header=1)
+data = np.genfromtxt(r'C:\Users\olive\Google Drive\recruitment manuscript\BaCa_new_class_clip.csv', delimiter=',', dtype='float',skip_header=1)
 data = np.delete(data,0,1)
 df1 = pd.DataFrame(data)
-data2 = np.genfromtxt(r'C:\Users\olive\Google Drive\recruitment manuscript\SrCa_boston_class_clip.csv', delimiter=',', dtype='float',skip_header=1)
+data2 = np.genfromtxt(r'C:\Users\olive\Google Drive\recruitment manuscript\SrCa_new_class_clip.csv', delimiter=',', dtype='float',skip_header=1)
 data2 = np.delete(data2,0,1)
 df2 = pd.DataFrame(data2)
 df3 = pd.DataFrame()
